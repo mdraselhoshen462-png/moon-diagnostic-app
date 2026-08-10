@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মুন ডায়াগনস্টিক সেন্টার - ড্যাশবোর্ড</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Hind Siliguri', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header / Banner -->
+    <header class="bg-white shadow-sm py-4 px-6 flex justify-between items-center border-b">
+        <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold text-xl border border-red-300">MDC</div>
+            <div>
+                <h1 class="text-2xl font-bold text-red-600">মুন ডায়াগনস্টিক সেন্টার</h1>
+                <p class="text-xs text-gray-500">সঠিক নির্ণয়, সুস্থ জীবনের প্রত্যয়</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full border">
+            <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+            <span class="text-sm font-medium">স্বাগত, Admin</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+
+        <!-- Navigation Sidebar / Tabs -->
+        <div class="md:col-span-1 bg-white p-4 rounded-xl shadow-sm border h-fit space-y-2">
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-50 text-blue-600 font-semibold transition">
+                <span class="text-xl">📊</span>
+                <span>ড্যাশবোর্ড</span>
+            </button>
+            <button onclick="switchTab('serial')" id="btn-serial" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 text-gray-600 font-medium transition">
+                <span class="text-xl">➕</span>
+                <span>অ্যাড সিরিয়াল</span>
+            </button>
+            <button onclick="switchTab('doctor')" id="btn-doctor" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 text-gray-600 font-medium transition">
+                <span class="text-xl">👨‍⚕️</span>
+                <span>অ্যাড ডাক্তার</span>
+            </button>
+            <button onclick="switchTab('careof')" id="btn-careof" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 text-gray-600 font-medium transition">
+                <span class="text-xl">👥</span>
+                <span>অ্যাড কেয়ার অফ</span>
+            </button>
+        </div>
+
+        <!-- Content Area -->
+        <div class="md:col-span-3 space-y-6">
+
+            <!-- 1. Dashboard Tab -->
+            <div id="tab-dashboard" class="space-y-6">
+                <!-- Statistics Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">মোট সিরিয়াল</p>
+                            <h3 class="text-2xl font-bold text-gray-800" id="total-count">৫৪ জন</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-2xl">👥</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">অপেক্ষমাণ সিরিয়াল</p>
+                            <h3 class="text-2xl font-bold text-yellow-600" id="pending-count">২৮ জন</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-lg flex items-center justify-center text-2xl">⏳</div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">সম্পন্ন সিরিয়াল</p>
+                            <h3 class="text-2xl font-bold text-green-600" id="completed-count">২৬ জন</h3>
+                        </div>
+                        <div class="w-12 h-12 bg-green-50 text-green-600 rounded-lg flex items-center justify-center text-2xl">✅</div>
+                    </div>
+                </div>
+
+                <!-- Recent Serials Table -->
+                <div class="bg-white rounded-xl shadow-sm border p-5">
+                    <h3 class="text-lg font-bold mb-4 text-gray-800">সাম্প্রতিক সিরিয়াল তালিকা</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b text-gray-500 text-sm">
+                                    <th class="py-3 px-4">সিরিয়াল নং</th>
+                                    <th class="py-3 px-4">পেশেন্টের নাম</th>
+                                    <th class="py-3 px-4">ডাক্তার</th>
+                                    <th class="py-3 px-4">স্ট্যাটাস</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serial-table-body" class="text-sm">
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-4 font-semibold">10055</td>
+                                    <td class="py-3 px-4">আব্দুল করিম</td>
+                                    <td class="py-3 px-4">ডা. মোং রাশেদুল হাসান</td>
+                                    <td class="py-3 px-4"><span class="bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full text-xs font-medium">অপেক্ষমাণ</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Add Serial Tab -->
+            <div id="tab-serial" class="hidden bg-white rounded-xl shadow-sm border p-6 space-y-4">
+                <h3 class="text-xl font-bold text-gray-800 border-b pb-3">নতুন সিরিয়াল যোগ করুন</h3>
+                <form id="serialForm" onsubmit="addSerial(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">পেশেন্ট নাম *</label>
+                            <input type="text" id="patientName" required placeholder="পেশেন্টের নাম লিখুন" class="w-full border rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">কেয়ার অফ নাম *</label>
+                            <input type="text" id="careOfName" required placeholder="কেয়ার অফ নাম লিখুন" class="w-full border rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">ডাক্তার নাম *</label>
+                            <select id="doctorSelect" class="w-full border rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <option>ডা. মোং রাশেদুল হাসান (মেডিসিন)</option>
+                                <option>ডা. সেলিনা আক্তার (গাইনী)</option>
+                                <option>ডা. আবদুল্লাহ আল মুজাহিদ (হাড়জোড়)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">সিরিয়াল নম্বর</label>
+                            <input type="text" id="serialNo" value="10056" readonly class="w-full bg-gray-50 border rounded-lg px-4 py-2.5 text-gray-500">
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition">সেভ করুন</button>
+                </form>
+            </div>
+
+            <!-- 3. Add Doctor Tab -->
+            <div id="tab-doctor" class="hidden bg-white rounded-xl shadow-sm border p-6 space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h3 class="text-xl font-bold text-gray-800">ডাক্তার তালিকা</h3>
+                    <button onclick="alert('নতুন ডাক্তার যোগ করার ফর্ম')" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ নতুন ডাক্তার</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">ডা.</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">ডা. মোং রাশেদুল হাসান</h4>
+                                <p class="text-xs text-gray-500">মেডিসিন বিশেষজ্ঞ</p>
+                            </div>
+                        </div>
+                        <div class="space-x-2">
+                            <button class="text-blue-600 hover:underline text-sm">এডিট</button>
+                            <button class="text-red-600 hover:underline text-sm">ডিলিট</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold">ডা.</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">ডা. সেলিনা আক্তার (বার্না)</h4>
+                                <p class="text-xs text-gray-500">গাইনী ও স্ত্রীরোগ বিশেষজ্ঞ</p>
+                            </div>
+                        </div>
+                        <div class="space-x-2">
+                            <button class="text-blue-600 hover:underline text-sm">এডিট</button>
+                            <button class="text-red-600 hover:underline text-sm">ডিলিট</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Add Care Of Tab -->
+            <div id="tab-careof" class="hidden bg-white rounded-xl shadow-sm border p-6 space-y-4">
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h3 class="text-xl font-bold text-gray-800">কেয়ার অফ তালিকা</h3>
+                    <button onclick="alert('নতুন কেয়ার অফ যোগ করার ফর্ম')" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ নতুন কেয়ার অফ</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                        <span class="font-medium text-gray-800">মোঃ আলমগীর হোসেন</span>
+                        <div class="space-x-2">
+                            <button class="text-blue-600 hover:underline text-sm">এডিট</button>
+                            <button class="text-red-600 hover:underline text-sm">ডিলিট</button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                        <span class="font-medium text-gray-800">মোঃ জাহাঙ্গীর আলম</span>
+                        <div class="space-x-2">
+                            <button class="text-blue-600 hover:underline text-sm">এডিট</button>
+                            <button class="text-red-600 hover:underline text-sm">ডিলিট</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript for Tab Switching and Dynamic Actions -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tabs
+            ['dashboard', 'serial', 'doctor', 'careof'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+                document.getElementById('btn-' + t).classList.remove('bg-blue-50', 'text-blue-600', 'font-semibold');
+                document.getElementById('btn-' + t).classList.add('text-gray-600', 'font-medium');
+            });
+
+            // Show selected tab
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-blue-50', 'text-blue-600', 'font-semibold');
+            activeBtn.classList.remove('text-gray-600', 'font-medium');
+        }
+
+        function addSerial(event) {
+            event.preventDefault();
+            const pName = document.getElementById('patientName').value;
+            const docName = document.getElementById('doctorSelect').value;
+            const sNo = document.getElementById('serialNo').value;
+
+            // Add to table
+            const tableBody = document.getElementById('serial-table-body');
+            const newRow = document.createElement('tr');
+            newRow.className = "border-b hover:bg-gray-50";
+            newRow.innerHTML = `
+                <td class="py-3 px-4 font-semibold">${sNo}</td>
+                <td class="py-3 px-4">${pName}</td>
+                <td class="py-3 px-4">${docName}</td>
+                <td class="py-3 px-4"><span class="bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full text-xs font-medium">অপেক্ষমাণ</span></td>
+            `;
+            tableBody.prepend(newRow);
+
+            // Update stats
+            alert('সফলভাবে সিরিয়াল সংরক্ষণ করা হয়েছে!');
+            document.getElementById('serialForm').reset();
+            document.getElementById('serialNo').value = parseInt(sNo) + 1;
+            switchTab('dashboard');
+        }
+    </script>
+</body>
+</html>
