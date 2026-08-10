@@ -11,22 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # ১. রিপোজিটরি ক্লোন করা
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # ২. Node.js সেটআপ করা (প্রজেক্ট অনুযায়ী পরিবর্তন করতে পারেন)
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-      # নিচে আপনার অ্যাপের নোড ভার্সন দিতে পারেন (যেমন: 18 বা 20)
-        node-version: '20' 
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-    # ৩. ডিপেন্ডেন্সি ইনস্টল করা
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    # ৪. প্রজেক্ট বিল্ড বা টেস্ট করা
-    - name: Run Build
-      run: npm run build
+      - name: Run Build
+        run: npm run build
